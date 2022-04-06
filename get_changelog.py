@@ -69,9 +69,13 @@ if __name__ == "__main__":
     input_date = str(sys.stdin)
     if re.search(r'No update was found', input_date):
         sys.stdout.write("No update found")
-        exit
+        exit()
     
-    changelogs = get_changelog(str(sys.stdin))
-    changelog = extract_latest_changelog(changelogs)
+    changelogs = get_changelog(input_date)
+    if changelogs:
+        changelog = extract_latest_changelog(changelogs)
+    else:
+        sys.stdout.write("No update found")
+        exit()
     sys.stdout.write(json.dumps({"changelog":changelog}))
     
