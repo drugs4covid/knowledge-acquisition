@@ -1,4 +1,6 @@
-# 
+#!/usr/bin/python3
+
+## Code that checks the cord-19 update of the last 31 days
 
 def cord19(date):
 	"""
@@ -39,7 +41,7 @@ def check_cord19_update(number_of_days=7):
 	- False (Boolean): If no update was found in the last x days.
 	"""
 	from datetime import date, timedelta
-	import wget
+	
 	today = date.today()
 	range_days = []
 	for day in range(number_of_days):
@@ -58,17 +60,23 @@ def check_cord19_update(number_of_days=7):
 
 	
 	if found_update:
-		print("An update was found on the CORD-19 at the date {}".format(day))
-		return True
+		# print("An update was found on the CORD-19 at the date {}".format(day))
+		return day
 	
-	print("No update was found on the web in the last {} days".format(number_of_days))
+	# print("No update was found on the web in the last {} days".format(number_of_days))
 	return False
 	
 	
-	
-if __name__ == '__main__':
-	import sys
-	number_of_days=7
-	if (len(sys.argv) > 1):
-		number_of_days = int(sys.argv[1])
-	check_cord19_update(number_of_days)
+
+if __name__ == "__main__":
+    import sys
+    number_of_days = 31
+    #FIXME:
+    # if (len(sys.argv) > 1):
+    #     number_of_days = int(sys.argv[1])
+    
+    date = check_cord19_update(number_of_days)
+    if not date:
+        sys.stdout.write("No update was found")
+    if date:
+        sys.stdout.write(str(date))
